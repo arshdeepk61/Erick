@@ -1,0 +1,32 @@
+meta {
+  name: Update User
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/users/{{userId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "johndoe",
+    "email": "john@example.com",
+    "password": "secret123",
+    "firstName": "Johnny",
+    "lastName": "Doe",
+    "address": "456 Oak Ave",
+    "city": "Springfield",
+    "state": "IL",
+    "zipCode": "62702",
+    "phoneNumber": "555-9876"
+  }
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

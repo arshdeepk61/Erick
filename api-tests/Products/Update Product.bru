@@ -1,0 +1,30 @@
+meta {
+  name: Update Product
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/products/{{productId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Wireless Mouse Pro",
+    "description": "Upgraded ergonomic wireless mouse",
+    "price": 39.99,
+    "stockQuantity": 80,
+    "sku": "WM-001",
+    "category": "Electronics",
+    "imageUrl": "https://example.com/mouse-pro.png",
+    "isActive": true
+  }
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

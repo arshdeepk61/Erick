@@ -1,0 +1,16 @@
+meta {
+  name: Delete Product
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/products/{{productId}}
+  auth: none
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

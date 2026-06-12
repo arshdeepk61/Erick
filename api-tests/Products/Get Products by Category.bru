@@ -1,0 +1,16 @@
+meta {
+  name: Get Products by Category
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/products/category/Electronics
+  auth: none
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Get Orders by User
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/orders/user/{{userId}}
+  auth: none
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

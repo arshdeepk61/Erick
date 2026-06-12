@@ -1,0 +1,20 @@
+meta {
+  name: Update Order Status
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/orders/{{orderId}}/status/CONFIRMED
+  auth: none
+}
+
+docs {
+  Valid status values: PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, REFUNDED
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}

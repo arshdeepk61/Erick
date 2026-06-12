@@ -1,0 +1,16 @@
+meta {
+  name: Get User by Email
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/users/email/john@example.com
+  auth: none
+}
+
+tests {
+  test("status is 200", function () {
+    expect(res.status).to.equal(200);
+  });
+}
