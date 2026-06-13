@@ -1,0 +1,26 @@
+meta {
+  name: Circular DI Demo
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/di/circular/demo
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response is JSON", function() {
+    expect(res.getHeader("content-type")).to.contain("application/json");
+  });
+
+  test("Circular Dependency resolved with @Lazy", function() {
+    const data = res.getBody();
+    expect(data.serviceA).to.equal("ServiceA calling ServiceB");
+    expect(data.serviceB).to.equal("ServiceB calling ServiceA");
+  });
+}

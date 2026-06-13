@@ -1,0 +1,28 @@
+meta {
+  name: DI Demo
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/di/demo
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response is JSON", function() {
+    expect(res.getHeader("content-type")).to.contain("application/json");
+  });
+
+  test("Dependency Injection worked correctly", function() {
+    const data = res.getBody();
+    expect(data.constructorPrimary).to.equal("Message from EmailService (Primary)");
+    expect(data.constructorSms).to.equal("Message from SmsService");
+    expect(data.fieldSms).to.equal("Message from SmsService");
+    expect(data.setterPrimary).to.equal("Message from EmailService (Primary)");
+  });
+}

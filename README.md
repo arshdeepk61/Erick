@@ -102,47 +102,47 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-The application will start on `http://localhost:8080/api`
+The application will start on `http://localhost:8080`
 
 ### H2 Database Console (Development)
 Access the H2 database console:
 ```
-http://localhost:8080/api/h2-console
+http://localhost:8080/h2-console
 ```
 
 ## API Endpoints
 
 ### User Endpoints
-- `POST /api/users` - Create a new user
-- `GET /api/users/{id}` - Get user by ID
-- `GET /api/users/email/{email}` - Get user by email
-- `GET /api/users` - Get all users
-- `PUT /api/users/{id}` - Update user
-- `DELETE /api/users/{id}` - Delete user
+- `POST /users` - Create a new user
+- `GET /users/{id}` - Get user by ID
+- `GET /users/email/{email}` - Get user by email
+- `GET /users` - Get all users
+- `PUT /users/{id}` - Update user
+- `DELETE /users/{id}` - Delete user
 
 ### Product Endpoints
-- `POST /api/products` - Create a new product
-- `GET /api/products/{id}` - Get product by ID
-- `GET /api/products/sku/{sku}` - Get product by SKU
-- `GET /api/products` - Get all products (with activeOnly filter)
-- `GET /api/products/category/{category}` - Get products by category
-- `PUT /api/products/{id}` - Update product
-- `DELETE /api/products/{id}` - Delete product
+- `POST /products` - Create a new product
+- `GET /products/{id}` - Get product by ID
+- `GET /products/sku/{sku}` - Get product by SKU
+- `GET /products` - Get all products (with activeOnly filter)
+- `GET /products/category/{category}` - Get products by category
+- `PUT /products/{id}` - Update product
+- `DELETE /products/{id}` - Delete product
 
 ### Order Endpoints
-- `POST /api/orders` - Create a new order
-- `GET /api/orders/{id}` - Get order by ID
-- `GET /api/orders` - Get all orders
-- `GET /api/orders/user/{userId}` - Get orders by user
-- `GET /api/orders/status/{status}` - Get orders by status
-- `PUT /api/orders/{id}/status/{status}` - Update order status
-- `PUT /api/orders/{id}/cancel` - Cancel an order
+- `POST /orders` - Create a new order
+- `GET /orders/{id}` - Get order by ID
+- `GET /orders` - Get all orders
+- `GET /orders/user/{userId}` - Get orders by user
+- `GET /orders/status/{status}` - Get orders by status
+- `PUT /orders/{id}/status/{status}` - Update order status
+- `PUT /orders/{id}/cancel` - Cancel an order
 
 ## Example Usage
 
 ### Create a User
 ```json
-POST /api/users
+POST /users
 {
   "username": "john.doe",
   "email": "john@example.com",
@@ -159,7 +159,7 @@ POST /api/users
 
 ### Create a Product
 ```json
-POST /api/products
+POST /products
 {
   "name": "Laptop",
   "description": "High-performance laptop",
@@ -174,7 +174,7 @@ POST /api/products
 
 ### Create an Order
 ```json
-POST /api/orders
+POST /orders
 {
   "userId": 1,
   "items": [

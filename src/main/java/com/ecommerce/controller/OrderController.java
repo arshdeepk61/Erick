@@ -54,21 +54,29 @@ public class OrderController {
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<OrderResponse>> getOrdersByStatus(@PathVariable String status) {
-        Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(status.toUpperCase());
-        List<Order> orders = orderService.getOrdersByStatus(orderStatus);
-        List<OrderResponse> responses = orders.stream()
-                .map(orderService::convertToResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(responses);
+        try {
+            Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(status.toUpperCase());
+            List<Order> orders = orderService.getOrdersByStatus(orderStatus);
+            List<OrderResponse> responses = orders.stream()
+                    .map(orderService::convertToResponse)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(responses);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid order status: " + status);
+        }
     }
 
     @PutMapping("/{id}/status/{status}")
     public ResponseEntity<OrderResponse> updateOrderStatus(@PathVariable Long id, 
                                                             @PathVariable String status) {
-        Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(status.toUpperCase());
-        Order order = orderService.updateOrderStatus(id, orderStatus);
-        OrderResponse response = orderService.convertToResponse(order);
-        return ResponseEntity.ok(response);
+        try {
+            Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(status.toUpperCase());
+            Order order = orderService.updateOrderStatus(id, orderStatus);
+            OrderResponse response = orderService.convertToResponse(order);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid order status: " + status);
+        }
     }
 
     @PutMapping("/{id}/cancel")

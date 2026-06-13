@@ -1,0 +1,25 @@
+meta {
+  name: AOP Demo
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/aop/demo
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response is JSON", function() {
+    expect(res.getHeader("content-type")).to.contain("application/json");
+  });
+
+  test("Normal task works", function() {
+    const data = res.getBody();
+    expect(data.normal).to.equal("Normal task performed");
+  });
+}

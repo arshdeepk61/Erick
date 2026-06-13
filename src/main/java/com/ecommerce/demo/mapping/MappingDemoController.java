@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/demo/mappings")
+@RequestMapping("/demo/mappings")
 public class MappingDemoController {
 
     private final PersonRepository personRepository;

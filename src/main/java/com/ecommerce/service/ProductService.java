@@ -1,5 +1,6 @@
 package com.ecommerce.service;
 
+import com.ecommerce.exception.ResourceNotFoundException;
 import com.ecommerce.model.Product;
 import com.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public Product getProductBySku(String sku) {
         return productRepository.findBySku(sku)
-                .orElseThrow(() -> new RuntimeException("Product not found with sku: " + sku));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with sku: " + sku));
     }
 
     public List<Product> getAllProducts() {
@@ -73,7 +74,7 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found with id: " + id);
+            throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         productRepository.deleteById(id);
     }

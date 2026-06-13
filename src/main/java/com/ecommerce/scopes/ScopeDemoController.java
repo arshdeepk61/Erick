@@ -15,8 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * English, what is happening. A brand-new student can just open it in a browser
  * and read along.
  *
- * Open in your browser (the app uses the /api context path):
- *     http://localhost:8080/api/scope-demo
+ * Open in your browser:
+ *     http://localhost:8080/scope-demo
  *
  * Then keep pressing REFRESH and read the page — it tells you what to look for.
  */

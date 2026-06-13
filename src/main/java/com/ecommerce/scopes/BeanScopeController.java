@@ -16,9 +16,9 @@ import java.util.Map;
  * (request / session / prototype) still behave correctly even though they live
  * inside a long-lived singleton — thanks to scoped proxies and ObjectProvider.
  *
- * Try it (note the /api context path configured for this app):
- *   GET http://localhost:8080/api/scopes        <- call it several times
- *   GET http://localhost:8080/api/scopes         in a different browser / incognito
+ * Try it:
+ *   GET http://localhost:8080/scopes        <- call it several times
+ *   GET http://localhost:8080/scopes         in a different browser / incognito
  *
  * What to watch in the JSON response:
  *   singleton    -> instanceId NEVER changes

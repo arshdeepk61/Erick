@@ -2,6 +2,7 @@ package com.ecommerce.service;
 
 import com.ecommerce.dto.CreateOrderRequest;
 import com.ecommerce.dto.OrderResponse;
+import com.ecommerce.exception.ResourceNotFoundException;
 import com.ecommerce.model.Order;
 import com.ecommerce.model.OrderItem;
 import com.ecommerce.model.Product;
@@ -46,7 +47,7 @@ public class OrderService {
             Product product = productService.getProductById(itemRequest.getProductId());
 
             if (!productService.reduceStock(itemRequest.getProductId(), itemRequest.getQuantity())) {
-                throw new RuntimeException("Insufficient stock for product: " + product.getName());
+                throw new IllegalArgumentException("Insufficient stock for product: " + product.getName());
             }
 
             OrderItem orderItem = new OrderItem();
@@ -68,7 +69,7 @@ public class OrderService {
 
     public Order getOrderById(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
     }
 
     public List<Order> getOrdersByUserId(Long userId) {
@@ -102,7 +103,7 @@ public class OrderService {
 
         if (order.getStatus() == Order.OrderStatus.SHIPPED ||
             order.getStatus() == Order.OrderStatus.DELIVERED) {
-            throw new RuntimeException("Cannot cancel order that has already been shipped or delivered");
+            throw new IllegalArgumentException("Cannot cancel order that has already been shipped or delivered");
         }
 
         for (OrderItem item : order.getItems()) {

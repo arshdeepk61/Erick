@@ -1,0 +1,21 @@
+meta {
+  name: AOP Timed Demo
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/aop/demo/timed
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Timed task works", function() {
+    const data = res.getBody();
+    expect(data.timed).to.equal("Timed task performed");
+  });
+}
