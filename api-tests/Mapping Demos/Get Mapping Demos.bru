@@ -1,0 +1,50 @@
+meta {
+  name: Get Mapping Demos
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/demo/mappings
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response contains all mapping types and collections are present", function() {
+    const data = res.getBody();
+    expect(data.oneToOne_Person_Passport).to.be.an('array');
+    expect(data.oneToMany_School_Students).to.be.an('array');
+    expect(data.manyToOne_And_ManyToMany_Students).to.be.an('array');
+    expect(data.manyToMany_Authors_Books).to.be.an('array');
+    
+    // Even if it's LAZY in Java, Jackson will trigger the load during JSON serialization
+    // unless @JsonIgnore is used. So we expect the lists to be there in the response.
+    if (data.oneToMany_School_Students.length > 0) {
+      expect(data.oneToMany_School_Students[0].students).to.be.an('array');
+    }
+    
+    if (data.manyToMany_Authors_Books.length > 0) {
+      expect(data.manyToMany_Authors_Books[0].books).to.be.an('array');
+    }
+  });
+
+  test("One-to-One mapping is correct", function() {
+    const data = res.getBody();
+    const person = data.oneToOne_Person_Passport[0];
+    expect(person.name).to.equal("John Doe");
+    expect(person.passport).to.be.an('object');
+    expect(person.passport.passportNumber).to.equal("ABC12345");
+  });
+
+  test("Many-to-Many Author-Book mapping is correct", function() {
+    const data = res.getBody();
+    const author = data.manyToMany_Authors_Books.find(a => a.name === "J.K. Rowling");
+    expect(author).to.be.an('object');
+    expect(author.books).to.be.an('array');
+    expect(author.books.some(b => b.title.includes("Harry Potter"))).to.be.true;
+  });
+}

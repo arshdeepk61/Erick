@@ -1,0 +1,35 @@
+meta {
+  name: Get All Scopes (JSON)
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/scopes
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response is JSON", function() {
+    expect(res.getHeader("content-type")).to.contain("application/json");
+  });
+
+  test("Contains all bean scopes", function() {
+    const data = res.getBody();
+    expect(data.singleton).to.be.an('object');
+    expect(data.application).to.be.an('object');
+    expect(data.session).to.be.an('object');
+    expect(data.request).to.be.an('object');
+    expect(data.prototype_call_1).to.be.an('object');
+    expect(data.prototype_call_2).to.be.an('object');
+  });
+
+  test("Prototype beans are different", function() {
+    const data = res.getBody();
+    expect(data.prototype_call_1.instanceId).to.not.equal(data.prototype_call_2.instanceId);
+  });
+}

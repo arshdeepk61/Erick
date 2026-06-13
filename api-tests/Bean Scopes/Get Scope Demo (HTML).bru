@@ -1,0 +1,24 @@
+meta {
+  name: Get Scope Demo (HTML)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/scope-demo
+  auth: none
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("Response is HTML", function() {
+    expect(res.getHeader("content-type")).to.contain("text/html");
+  });
+
+  test("Contains demo title", function() {
+    expect(res.getBody()).to.contain("What is a Spring \"bean scope\"?");
+  });
+}
