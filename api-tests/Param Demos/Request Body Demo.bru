@@ -1,0 +1,19 @@
+meta {
+  name: Request Body Demo
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/params/body
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Junie",
+    "age": 25,
+    "email": "junie@example.com"
+  }
+}
