@@ -1,0 +1,19 @@
+meta {
+  name: Create Post (Async)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/demo/webclient/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "title": "New Post via WebClient",
+    "body": "This is an asynchronous post created using Spring Boot's WebClient demo."
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/demo/rest-template/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "title": "New Post via RestTemplate",
+    "body": "This is a post created using Spring Boot's RestTemplate demo."
+  }
+}

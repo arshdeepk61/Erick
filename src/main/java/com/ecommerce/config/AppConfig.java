@@ -23,10 +23,6 @@ public class AppConfig {
      * Creating a Bean for RestTemplate.
      * This is commonly used for making HTTP requests to external APIs.
      */
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 
     /**
      * A simple custom bean that provides a specific string format.

@@ -1,0 +1,19 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/demo/feign/posts
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "title": "New Post via FeignClient",
+    "body": "This is a post created using Spring Cloud OpenFeign demo."
+  }
+}
