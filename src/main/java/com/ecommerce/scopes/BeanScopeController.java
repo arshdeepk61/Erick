@@ -17,8 +17,8 @@ import java.util.Map;
  * inside a long-lived singleton — thanks to scoped proxies and ObjectProvider.
  *
  * Try it:
- *   GET http://localhost:8080/scopes        <- call it several times
- *   GET http://localhost:8080/scopes         in a different browser / incognito
+ *   GET http://localhost/scopes        <- call it several times
+ *   GET http://localhost/scopes         in a different browser / incognito
  *
  * What to watch in the JSON response:
  *   singleton    -> instanceId NEVER changes

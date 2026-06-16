@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * and read along.
  *
  * Open in your browser:
- *     http://localhost:8080/scope-demo
+ *     http://localhost/scope-demo
  *
  * Then keep pressing REFRESH and read the page — it tells you what to look for.
  */

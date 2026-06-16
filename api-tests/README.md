@@ -13,9 +13,9 @@ brew install bruno
 
 ## Run
 
-1. Start the app: `mvn spring-boot:run` (listens on `http://localhost:8080`).
+1. Start the app: `mvn spring-boot:run` (listens on `http://localhost`).
 2. In Bruno: **Open Collection** → select this `api-tests` folder.
-3. Pick the **Local** environment (top-right). It defines `baseUrl=http://localhost:8080`.
+3. Pick the **Local** environment (top-right). It defines `baseUrl=http://localhost`.
 4. Run requests individually, or use **Run Collection** to run them all.
 
 ## Layout

@@ -6,15 +6,16 @@ meta {
 
 get {
   url: {{baseUrl}}/orders/status/PENDING
+  body: none
   auth: none
-}
-
-docs {
-  Valid status values: PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, REFUNDED
 }
 
 tests {
   test("status is 200", function () {
     expect(res.status).to.equal(200);
   });
+}
+
+docs {
+  Valid status values: PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED, REFUNDED
 }

@@ -15,7 +15,7 @@ public class ParamDemoController {
 
     /**
      * 1. @PathVariable: Used to extract data from the URL path itself.
-     * URL Example: GET http://localhost:8080/params/path/123
+     * URL Example: GET http://localhost/params/path/123
      */
     @GetMapping("/path/{id}")
     public Map<String, Object> testPathVariable(@PathVariable Long id) {
@@ -28,7 +28,7 @@ public class ParamDemoController {
 
     /**
      * 2. @RequestParam: Used to extract query parameters from the URL (after the '?').
-     * URL Example: GET http://localhost:8080/params/query?name=Junie&active=true
+     * URL Example: GET http://localhost/params/query?name=Junie&active=true
      */
     @GetMapping("/query")
     public Map<String, Object> testRequestParam(
