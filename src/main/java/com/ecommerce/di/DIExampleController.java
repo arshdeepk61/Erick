@@ -20,11 +20,8 @@ public class DIExampleController {
     // 2. Constructor Injection with @Qualifier
     private final MessageService smsService;
 
-    // 3. Field Injection (Discouraged, but common in legacy code)
-    // Field injection is hard to test because you can't easily inject a mock without Spring
-    @Autowired
-    @Qualifier("smsService")
-    private MessageService fieldInjectedSmsService;
+    // 3. Field Injection (Refactored to Constructor Injection)
+    private final MessageService fieldInjectedSmsService;
 
     // 4. Setter Injection
     // Useful for optional dependencies or when you need to change the dependency at runtime
@@ -32,9 +29,11 @@ public class DIExampleController {
 
     @Autowired
     public DIExampleController(MessageService primaryService, 
-                               @Qualifier("smsService") MessageService smsService) {
+                               @Qualifier("smsService") MessageService smsService,
+                               @Qualifier("smsService") MessageService fieldInjectedSmsService) {
         this.primaryService = primaryService;
         this.smsService = smsService;
+        this.fieldInjectedSmsService = fieldInjectedSmsService;
     }
 
     @Autowired

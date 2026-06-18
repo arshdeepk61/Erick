@@ -21,17 +21,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+    private final UserService userService;
+    private final ProductService productService;
+    private final KafkaProducerService kafkaProducer;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private KafkaProducerService kafkaProducer;
+    public OrderService(OrderRepository orderRepository, UserService userService, 
+                        ProductService productService, KafkaProducerService kafkaProducer) {
+        this.orderRepository = orderRepository;
+        this.userService = userService;
+        this.productService = productService;
+        this.kafkaProducer = kafkaProducer;
+    }
 
     public Order createOrder(CreateOrderRequest request) {
         User user = userService.getUserById(request.getUserId());

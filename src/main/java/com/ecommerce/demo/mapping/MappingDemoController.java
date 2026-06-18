@@ -1,5 +1,6 @@
 package com.ecommerce.demo.mapping;
 
+import com.ecommerce.repository.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,6 +60,8 @@ public class MappingDemoController {
                 .orElseThrow(() -> new RuntimeException("Book not found"));
         
         author.getBooks().add(book);
+        book.getAuthors().add(author);
+        bookRepository.save(book);
         return authorRepository.save(author);
     }
 }

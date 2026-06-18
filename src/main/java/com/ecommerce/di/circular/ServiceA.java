@@ -1,15 +1,17 @@
 package com.ecommerce.di.circular;
 
-import com.ecommerce.di.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceA {
+    @Autowired
     private ServiceB serviceB;
 
-    @Autowired
+    public ServiceB getServiceB() {
+        return serviceB;
+    }
+
     public void setServiceB(ServiceB serviceB) {
         this.serviceB = serviceB;
     }

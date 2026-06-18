@@ -1,5 +1,6 @@
 package com.ecommerce.demo.mapping;
 
+import com.ecommerce.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,11 +69,12 @@ public class MappingDataInitializer implements CommandLineRunner {
         Book b3 = new Book("Fantastic Beasts"); // Written by J.K. Rowling
 
         // Link them
-        a1.getBooks().addAll(Arrays.asList(b1, b3));
-        a2.getBooks().add(b2);
+        b1.getAuthors().add(a1);
+        b3.getAuthors().add(a1);
+        b2.getAuthors().add(a2);
         
         // Note: In Many-to-Many, we save everything. 
-        // Since Author is the owning side, it will populate the join table.
+        // Since Book is the owning side, it will populate the join table.
         bookRepository.saveAll(Arrays.asList(b1, b2, b3));
         authorRepository.saveAll(Arrays.asList(a1, a2));
 

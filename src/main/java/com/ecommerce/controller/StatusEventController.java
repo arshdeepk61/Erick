@@ -12,8 +12,11 @@ import java.util.List;
 @RequestMapping("/status-events")
 public class StatusEventController {
 
-    @Autowired
-    private StatusEventRepository statusEventRepository;
+    private final StatusEventRepository statusEventRepository;
+
+    public StatusEventController(StatusEventRepository statusEventRepository) {
+        this.statusEventRepository = statusEventRepository;
+    }
 
     @GetMapping
     public ResponseEntity<List<StatusEventLog>> getAllEvents() {

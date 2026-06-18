@@ -14,8 +14,11 @@ public class KafkaProducerService {
 
     private static final String TOPIC = "status-events";
 
-    @Autowired
-    private KafkaTemplate<String, StatusEvent> kafkaTemplate;
+    private final KafkaTemplate<String, StatusEvent> kafkaTemplate;
+
+    public KafkaProducerService(KafkaTemplate<String, StatusEvent> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public void publishStatusEvent(String resourceType, String resourceId, String status, String message) {
         StatusEvent event = StatusEvent.builder()

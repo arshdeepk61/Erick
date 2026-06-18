@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class KafkaConsumerService {
 
-    @Autowired
-    private StatusEventRepository statusEventRepository;
+    private final StatusEventRepository statusEventRepository;
+
+    public KafkaConsumerService(StatusEventRepository statusEventRepository) {
+        this.statusEventRepository = statusEventRepository;
+    }
 
     @KafkaListener(topics = "status-events", groupId = "ecommerce-group")
     public void consumeStatusEvent(StatusEvent event) {

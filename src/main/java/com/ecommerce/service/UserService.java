@@ -14,11 +14,13 @@ import java.util.Optional;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final KafkaProducerService kafkaProducer;
 
-    @Autowired
-    private KafkaProducerService kafkaProducer;
+    public UserService(UserRepository userRepository, KafkaProducerService kafkaProducer) {
+        this.userRepository = userRepository;
+        this.kafkaProducer = kafkaProducer;
+    }
 
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {

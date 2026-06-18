@@ -14,11 +14,14 @@ import java.util.Map;
 @RequestMapping("/profile")
 public class ProfileDemoController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
+    private final String environmentName;
 
-    @Value("${app.environment:default}")
-    private String environmentName;
+    public ProfileDemoController(MessageService messageService, 
+                                 @Value("${app.environment:default}") String environmentName) {
+        this.messageService = messageService;
+        this.environmentName = environmentName;
+    }
 
     @GetMapping("/info")
     public Map<String, String> getProfileInfo() {

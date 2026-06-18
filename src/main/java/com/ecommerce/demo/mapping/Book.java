@@ -17,10 +17,13 @@ public class Book {
     
     private String title;
 
-    @ManyToMany(mappedBy = "books")
-    @JsonIgnoreProperties("books") // Prevents infinite recursion in JSON
-    // Book is the INVERSE side because of 'mappedBy'
-    // It tells Hibernate: "Look at the 'books' list in the Author class to find the mapping"
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "author_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    @JsonIgnoreProperties("books")
     private List<Author> authors = new ArrayList<>();
 
     public Book(String title) {

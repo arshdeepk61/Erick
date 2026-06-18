@@ -13,11 +13,13 @@ import java.util.List;
 @Transactional
 public class ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+    private final KafkaProducerService kafkaProducer;
 
-    @Autowired
-    private KafkaProducerService kafkaProducer;
+    public ProductService(ProductRepository productRepository, KafkaProducerService kafkaProducer) {
+        this.productRepository = productRepository;
+        this.kafkaProducer = kafkaProducer;
+    }
 
     public Product createProduct(Product product) {
         Product savedProduct = productRepository.save(product);
