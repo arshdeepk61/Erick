@@ -17,6 +17,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private KafkaProducerService kafkaProducer;
+
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
@@ -24,7 +27,10 @@ public class UserService {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new IllegalArgumentException("Username already exists");
         }
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        kafkaProducer.publishStatusEvent("USER", savedUser.getId().toString(), 
+                "CREATED", "User created with email: " + savedUser.getEmail());
+        return savedUser;
     }
 
     public User getUserById(Long id) {
@@ -69,7 +75,10 @@ public class UserService {
         if (userDetails.getPhoneNumber() != null) {
             user.setPhoneNumber(userDetails.getPhoneNumber());
         }
-        return userRepository.save(user);
+        User updatedUser = userRepository.save(user);
+        kafkaProducer.publishStatusEvent("USER", updatedUser.getId().toString(), 
+                "UPDATED", "User details updated");
+        return updatedUser;
     }
 
     public void deleteUser(Long id) {
@@ -77,6 +86,8 @@ public class UserService {
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
         userRepository.deleteById(id);
+        kafkaProducer.publishStatusEvent("USER", id.toString(), 
+                "DELETED", "User deleted with id: " + id);
     }
 
     public Optional<User> findByEmail(String email) {

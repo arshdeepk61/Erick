@@ -16,8 +16,14 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private KafkaProducerService kafkaProducer;
+
     public Product createProduct(Product product) {
-        return productRepository.save(product);
+        Product savedProduct = productRepository.save(product);
+        kafkaProducer.publishStatusEvent("PRODUCT", savedProduct.getId().toString(), 
+                "CREATED", "Product created: " + savedProduct.getName());
+        return savedProduct;
     }
 
     public Product getProductById(Long id) {
@@ -69,7 +75,10 @@ public class ProductService {
         if (productDetails.getIsActive() != null) {
             product.setIsActive(productDetails.getIsActive());
         }
-        return productRepository.save(product);
+        Product updatedProduct = productRepository.save(product);
+        kafkaProducer.publishStatusEvent("PRODUCT", updatedProduct.getId().toString(), 
+                "UPDATED", "Product updated: " + updatedProduct.getName());
+        return updatedProduct;
     }
 
     public void deleteProduct(Long id) {
@@ -77,6 +86,8 @@ public class ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         productRepository.deleteById(id);
+        kafkaProducer.publishStatusEvent("PRODUCT", id.toString(), 
+                "DELETED", "Product deleted with id: " + id);
     }
 
     public boolean reduceStock(Long productId, Integer quantity) {

@@ -20,6 +20,8 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User createdUser = userService.createUser(user);
+        // Added redundant log/event per user request for "multiple places"
+        System.out.println("Controller: Creating user " + user.getEmail());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
@@ -44,6 +46,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
+        System.out.println("Controller: Updated user " + id);
         return ResponseEntity.ok(updatedUser);
     }
 

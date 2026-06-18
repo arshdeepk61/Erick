@@ -20,6 +20,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         Product createdProduct = productService.createProduct(product);
+        System.out.println("Controller: Product created: " + product.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
@@ -57,6 +58,7 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, 
                                                   @Valid @RequestBody Product productDetails) {
         Product updatedProduct = productService.updateProduct(id, productDetails);
+        System.out.println("Controller: Product updated: " + id);
         return ResponseEntity.ok(updatedProduct);
     }
 

@@ -24,6 +24,7 @@ public class OrderController {
     public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest request) {
         Order order = orderService.createOrder(request);
         OrderResponse response = orderService.convertToResponse(order);
+        System.out.println("Controller: Order created for user " + request.getUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -73,6 +74,7 @@ public class OrderController {
             Order.OrderStatus orderStatus = Order.OrderStatus.valueOf(status.toUpperCase());
             Order order = orderService.updateOrderStatus(id, orderStatus);
             OrderResponse response = orderService.convertToResponse(order);
+            System.out.println("Controller: Order " + id + " status updated to " + status);
             return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid order status: " + status);

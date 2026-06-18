@@ -30,6 +30,9 @@ public class OrderService {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private KafkaProducerService kafkaProducer;
+
     public Order createOrder(CreateOrderRequest request) {
         User user = userService.getUserById(request.getUserId());
 
@@ -64,7 +67,12 @@ public class OrderService {
         }
 
         order.setTotalAmount(totalAmount);
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        
+        kafkaProducer.publishStatusEvent("ORDER", savedOrder.getId().toString(), 
+                savedOrder.getStatus().name(), "Order created successfully");
+                
+        return savedOrder;
     }
 
     public Order getOrderById(Long id) {
@@ -95,7 +103,12 @@ public class OrderService {
             order.setDeliveredDate(LocalDateTime.now());
         }
 
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        
+        kafkaProducer.publishStatusEvent("ORDER", savedOrder.getId().toString(), 
+                savedOrder.getStatus().name(), "Order status updated to " + status);
+                
+        return savedOrder;
     }
 
     public Order cancelOrder(Long orderId) {
@@ -111,7 +124,12 @@ public class OrderService {
         }
 
         order.setStatus(Order.OrderStatus.CANCELLED);
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        
+        kafkaProducer.publishStatusEvent("ORDER", savedOrder.getId().toString(), 
+                "CANCELLED", "Order cancelled by user");
+                
+        return savedOrder;
     }
 
     public OrderResponse convertToResponse(Order order) {

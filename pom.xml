@@ -28,6 +28,7 @@
         <!-- Override Spring Boot's managed Lombok (1.18.30) so newer JDKs are supported -->
         <lombok.version>1.18.38</lombok.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
+        <spring-kafka.version>3.0.12</spring-kafka.version>
     </properties>
 
     <dependencies>
@@ -89,10 +90,22 @@
             <classifier>osx-aarch_64</classifier>
         </dependency>
 
+        <!-- Kafka -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka.version}</version>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
