@@ -1,0 +1,11 @@
+meta {
+  name: Kafka UI Status Events
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8081/ui/clusters/local/all-topics/status-events/messages?keySerde=String&valueSerde=String&limit=100
+  body: none
+  auth: none
+}

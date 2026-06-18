@@ -13,9 +13,9 @@ brew install bruno
 
 ## Run
 
-1. Start the app: `mvn spring-boot:run` (listens on `http://localhost`).
+1. Start the app: `mvn spring-boot:run` (listens on `http://localhost:8080`).
 2. In Bruno: **Open Collection** → select this `api-tests` folder.
-3. Pick the **Local** environment (top-right). It defines `baseUrl=http://localhost`.
+3. Pick the **Local** environment (top-right). It defines `baseUrl=http://localhost:8080`.
 4. Run requests individually, or use **Run Collection** to run them all.
 
 ## Layout
@@ -23,6 +23,7 @@ brew install bruno
 - **Users** – create / list / get by id / get by email / update / delete
 - **Products** – create / list / get by id / get by SKU / get by category / update / delete
 - **Orders** – create / list / get by id / by user / by status / update status / cancel
+- **Infrastructure** – Kafka UI and Kafka Message history
 
 ## Chaining
 
